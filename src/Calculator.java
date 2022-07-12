@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -9,6 +8,10 @@ public class Calculator {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
+        System.out.println(calc(userInput));
+    }
+
+    public static String calc(String userInput) throws Exception {
         String[] source = userInput.split("");
         char operator = 0;
         int indexOfOperator = 0;
@@ -41,14 +44,17 @@ public class Calculator {
             int a = Integer.parseInt(source[0]);
             int b = Integer.parseInt(source[2]);
             result = calculated(a, operator, b);
-            System.out.println(result);
+            return String.valueOf(result);
         } else if (areRoman(num1) && areRoman(num2)) {
             int romanNum1 = romanToNumber(num1);
             int romanNum2 = romanToNumber(num2);
             if (romanNum1 <= 10 && romanNum2 <= 10) {
                 result = calculated(romanNum1, operator, romanNum2);
-                String romanResult = numberToRom(result);
-                System.out.println(romanResult);
+                if (result > 0) {
+                    return numberToRom(result);
+                } else {
+                    throw new Exception();
+                }
             } else {
                 throw new Exception();
             }
